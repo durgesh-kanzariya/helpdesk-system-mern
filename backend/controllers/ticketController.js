@@ -116,7 +116,9 @@ const updateTicket = async (req, res) => {
             if (req.body.priority !== undefined) allowedUpdates.priority = req.body.priority;
             if (req.body.status !== undefined) allowedUpdates.status = req.body.status;
             if (req.body.category !== undefined) allowedUpdates.category = req.body.category;
-            if (req.body.assignedTo !== undefined) allowedUpdates.assignedTo = req.body.assignedTo;
+            if (req.body.assignedTo !== undefined) {
+                allowedUpdates.assignedTo = (!req.body.assignedTo || req.body.assignedTo === '') ? null : req.body.assignedTo;
+            }
         } else {
             // Regular user can edit title, description, priority, category, or close their ticket
             if (req.body.title !== undefined) allowedUpdates.title = req.body.title;

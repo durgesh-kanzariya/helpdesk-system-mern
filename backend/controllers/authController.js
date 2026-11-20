@@ -104,8 +104,21 @@ const getMe = async (req, res) => {
   }
 };
 
+// @desc    Get all users (for assignment & team directory)
+// @route   GET /api/auth/users
+// @access  Private (Admin or authenticated users)
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).select('name email role');
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'Server error fetching users' });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getMe,
+  getAllUsers,
 };
